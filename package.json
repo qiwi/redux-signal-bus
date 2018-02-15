@@ -1,0 +1,27 @@
+{
+  "name": "redux-signal-bus",
+  "version": "0.0.1",
+  "description": "Signal bus over redux actions",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.qiwi.com:jslab/redux-signal-bus.git"
+  },
+  "keywords": [
+    "redux",
+    "signal",
+    "bus",
+    "event"
+  ],
+  "author": "Anton Golub <a.golub@qiwi.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash-es": "^4.17.5"
+  }
+}
