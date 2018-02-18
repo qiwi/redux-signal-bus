@@ -46,7 +46,8 @@ export interface IBus {
   store: IStore;
   dispatcher: IDispatcher;
 
-  constructor (store: IStore): IBus;
+  constructor (): IBus;
+  configure(opts: IBusOpts): IBus;
   emit(name: string, data?: ?any, ttl?: ?number): void;
   listen(name: string): any;
   erase(): void;
@@ -55,6 +56,10 @@ export interface IBus {
   hoc(): void;
   reducer(): void;
   getScope(): string;
+}
+
+export type IBusOpts = {
+  store: IStore
 }
 
 export type IReactComponent = any

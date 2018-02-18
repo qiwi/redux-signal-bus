@@ -32,20 +32,23 @@ export default class Dispatcher implements IDispatcher{
 
   on(event: string, handler: IHandler) {
     this.handlers[event] = handler
+
+    return this
   }
 
   remove(event: string) {
     delete this.handlers[event]
   }
 
-  reducer(state: ISignalStack = [], {event, filter, signal}: IAction): ISignalStack {
-    const handler = this.handlers[event];
+  //reducer(state: ISignalStack = [], opt): ISignalStack {
+  reducer(state: ISignalStack = [], {type, filter, signal}: IAction): ISignalStack {
+    const handler = this.handlers[type];
 
     if (!handler) {
       return state;
     }
 
-    const handlerArgs: IHandlerArgs = {state, event, filter, signal}
+    const handlerArgs: IHandlerArgs = {state, event: type, filter, signal}
 
     return handler(handlerArgs);
   }
