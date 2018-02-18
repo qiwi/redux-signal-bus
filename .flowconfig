@@ -2,7 +2,8 @@
 ./src
 
 [ignore]
-node_modules/.*
+./dist/
+./node_modules/.*
 
 [libs]
 ./definitions/

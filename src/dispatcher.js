@@ -17,12 +17,14 @@ import type {
 export default class Dispatcher implements IDispatcher{
   handlers: IHandlerMap
   dispatch: IDispatch
-  constructor(dispatch: IDispatch) {
+  constructor(dispatch: IDispatch): IDispatcher{
     this.dispatch = dispatch
     this.handlers = {}
+
+    return this
   }
 
-  emit(event: string, signal?: ?ISignal, filter: IFilter) {
+  emit(event: string, signal?: ?ISignal, filter: IFilter): IAction {
     return this.dispatch({
       type: event,
       signal,
@@ -30,17 +32,16 @@ export default class Dispatcher implements IDispatcher{
     })
   }
 
-  on(event: string, handler: IHandler) {
+  on(event: string, handler: IHandler): IDispatcher {
     this.handlers[event] = handler
 
     return this
   }
 
-  remove(event: string) {
+  remove(event: string): void {
     delete this.handlers[event]
   }
 
-  //reducer(state: ISignalStack = [], opt): ISignalStack {
   reducer(state: ISignalStack = [], {type, filter, signal}: IAction): ISignalStack {
     const handler = this.handlers[type];
 

@@ -1,29 +1,31 @@
 // @flow
 
-import type {IFilterPredicate, ISignal} from './interface'
+import type {IFilter, IFilterPredicate, IFilterValue, ISignal} from './interface'
 
-export default class Filter {
-  value: any
+export default class Filter implements IFilter{
+  value: IFilterValue
   fn: IFilterPredicate
 
-  constructor(value: any) {
+  constructor(value: IFilterValue): IFilter {
     this.fn = this.constructor.parseValue(value)
     this.value = value
+
+    return this
   }
 
-  static parseValue(value: any): IFilterPredicate {
+  static parseValue(value: IFilterValue): IFilterPredicate {
     switch (true) {
       case value instanceof RegExp:
-        return ({name}: ISignal) => value.test(name)
+        return ({name}: ISignal): boolean => value.test(name)
 
       case typeof value === 'string':
-        return ({name}: ISignal) => name === value
+        return ({name}: ISignal): boolean => name === value
 
       case typeof value === 'function':
-        return value
+        return (...args) => !!value(...args)
 
       default:
-        return () => {}
+        return () => false
     }
   }
 }

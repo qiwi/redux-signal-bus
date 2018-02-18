@@ -1,20 +1,28 @@
+// @flow
+
+export type IFilterValue = | string | RegExp | Function| IFilterFn
+
 export type IAction = {
   type: string;
-  signal?: ?ISignal;
-  filter?: ?IFilter;
+  signal: ?ISignal;
+  filter: ?IFilter;
 }
 
 export interface IFilterPredicate {
   (signal: ISignal): boolean
 }
 
-export type IFilter = string | RegExp | IFilterFn
+export interface IFilter {
+  constructor(value: IFilterValue): IFilter;
+  value: IFilterValue;
+  fn: IFilterPredicate;
+}
 
 export type IFilterFn = {
   (state: ISignalStack): ISignalStack;
 }
 
-export type ISignalStack = Array<ISignal>
+export type ISignalStack = Array<ISignal> | void
 
 export interface ISignal {
   constructor(opts: ISignalOpts): ISignal;
@@ -52,8 +60,7 @@ export interface IBus {
   listen(name: string): any;
   erase(): void;
   capture(): void;
-  connect(component: IReactComponent)
-  hoc(): void;
+  connect(component: IReactComponent): IReactComponent;
   reducer(): void;
   getScope(): string;
 }
@@ -66,10 +73,10 @@ export type IReactComponent = any
 
 export interface IDispatcher {
   dispatch: IDispatch;
-  handlers: IHandlerMap
+  handlers: IHandlerMap;
   constructor(): IDispatcher;
   on(event: string, handler: IHandler): void;
-  emit(event: string, signal: ISignal, IFilter);
+  emit(event: string, signal: ISignal, IFilter): IAction;
   remove(event: string): void;
 }
 
@@ -92,4 +99,3 @@ export interface IReducer {
   reduce(state: any): any
 }
 
-export type IFilterValue = string | RegExp | IFilterFn

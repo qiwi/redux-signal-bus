@@ -1,5 +1,5 @@
 // @flow
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import {negate} from './base'
 import Dispatcher from './dispatcher'
 import Signal from './signal'
@@ -13,7 +13,8 @@ import type {
   IReactComponent,
   IFilterValue,
   ISignalStack,
-  IAction
+  IAction,
+  IHandlerArgs
 } from './interface'
 
 export const EMIT_SIGNAL = 'EMIT_SIGNAL'
@@ -25,33 +26,40 @@ export default class Bus implements IBus {
   scope: string
   store: IStore
   dispatcher: IDispatcher
-  //compact: Function
 
-  constructor() {
+  constructor(): IBus {
     this.scope = `__signal_bus__${Math.random()}`
     this.dispatcher = new Dispatcher(this.dispatch.bind(this))
 
     this.dispatcher
-      .on(EMIT_SIGNAL, ({state, signal}) => state.concat(signal))
-      .on(ERASE_SIGNAL, ({state, filter}) => {
-        const filtered = state.filter(negate(filter.fn))
+      .on(EMIT_SIGNAL, ({state, signal}: IHandlerArgs) => state.concat(signal))
+      .on(ERASE_SIGNAL, ({state, filter}: IHandlerArgs) => {
+        const filtered: ISignalStack = state.filter(negate(filter.fn))
 
         return filtered.length !== state.length
           ? filtered
           : state
       })
+
+    return this
   }
 
-
-  configure({store}: IBusOpts) {
+  /**
+   * Configures bus instance.
+   * @param {IStore} store
+   * @returns {Bus}
+   */
+  configure({store}: IBusOpts): IBus {
     this.store = store
+
+    return this
   }
 
   /**
    * Dispatches redux action to store
    * @param {IAction} action
    */
-  dispatch(action: IAction) {
+  dispatch(action: IAction): IAction {
     if (this.store) {
       return this.store.dispatch(action)
     }
@@ -63,7 +71,7 @@ export default class Bus implements IBus {
    * @param {Mixed} [data]
    * @param {number} [ttl]
    */
-  emit(event: string, data?: ?any, ttl?: ?number) {
+  emit(event: string, data?: ?any, ttl?: ?number): void {
     this.assertStore()
 
     this.dispatcher.emit(
@@ -77,15 +85,11 @@ export default class Bus implements IBus {
    * @param {string/RegExp/Function<T>} filter
    * @returns {T[]}
    */
-  listen(filter: IFilterValue) {
+  listen(filter: IFilterValue): ISignalStack {
     this.assertStore()
     const scope = this.getScope()
     const signals: ISignalStack = (this.store.getState() || {})[scope] || []
 
-    //const signals: ISignalStack = this.dispatcher.emit(LISTEN_SIGNAL)
-
-    //console.log('!!!listen', signals)
-    //return [];
     return signals.filter(new Filter(filter).fn)
   }
 
@@ -94,10 +98,10 @@ export default class Bus implements IBus {
    * @param  {string/RegExp/Function<T>} filter
    * @returns {*}
    */
-  erase(filter: IFilterValue) {
+  erase(filter: IFilterValue): void {
     this.assertStore()
 
-    return this.dispatcher.emit(
+    this.dispatcher.emit(
       ERASE_SIGNAL,
       null,
       new Filter(filter)
@@ -109,7 +113,7 @@ export default class Bus implements IBus {
    * @param {string/RegExp/Function<T>} filter
    * @returns {T[]}
    */
-  capture(filter: IFilterValue) {
+  capture(filter: IFilterValue): ISignalStack {
     this.assertStore()
     this.compact()
 
@@ -122,7 +126,7 @@ export default class Bus implements IBus {
     return signals
   }
 
-  compact() {
+  compact(): void {
     const now = Date.now()
     const filter = ({expiresAt}) => now >= expiresAt
 
@@ -140,7 +144,7 @@ export default class Bus implements IBus {
    * @param {React.Component} component
    * @returns {React.Component}
    */
-  connect(component: IReactComponent) {
+  connect(component: IReactComponent): IReactComponent{
     const scope = this.getScope()
 
     return connect(state => ({[scope]: state[scope]}))(component)
@@ -150,7 +154,7 @@ export default class Bus implements IBus {
    * Returns bus reducer to integrate with store.
    * @returns {*}
    */
-  getReducer() {
+  getReducer(): Function {
     return this.dispatcher.reducer.bind(this.dispatcher)
   }
 
@@ -162,7 +166,7 @@ export default class Bus implements IBus {
     return this.scope
   }
 
-  assertStore() {
+  assertStore(): void {
     if (!this.store) {
       throw new Error('store is required')
     }
