@@ -14,12 +14,16 @@ pids
 # Coverage
 flow-coverage
 lib-cov
-coverage
+coverage/
 .nyc_output
 
 # Bundle
-build
-dist
+build/
+dist/
+
+#Docs
+docs/
+doc/
 
 # Deps
 node_modules/

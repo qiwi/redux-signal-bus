@@ -32,8 +32,21 @@ export default class Bus implements IBus {
   store: IStore
   dispatcher: IDispatcher
 
+  /**
+   * @public
+   * @returns {Bus}
+   */
   constructor (): IBus {
+    /**
+     * @private
+     * @property {string} scope
+     */
     this.scope = `@@signal_bus_${Math.random()}`
+
+    /**
+     * @private
+     * @property {Dispatcher} dispatcher
+     */
     this.dispatcher = new Dispatcher(this.dispatch.bind(this))
 
     this.dispatcher
@@ -58,10 +71,15 @@ export default class Bus implements IBus {
 
   /**
    * Configures bus instance.
+   * @public
    * @param {IStore} store
    * @returns {Bus}
    */
   configure ({store}: IBusOpts): IBus {
+    /**
+     * @private
+     * @property {Store} store
+     */
     this.store = store
 
     return this
@@ -69,7 +87,9 @@ export default class Bus implements IBus {
 
   /**
    * Dispatches redux action to store
+   * @public
    * @param {IAction} action
+   * @private
    */
   dispatch (action: IAction): IAction {
     return this.store.dispatch(action)
@@ -77,8 +97,9 @@ export default class Bus implements IBus {
 
   /**
    * Emits new bus event.
+   * @public
    * @param {string} event
-   * @param {Mixed} [data]
+   * @param {*} [data]
    * @param {number} [ttl]
    * @param {boolean} [silent]
    */
@@ -97,6 +118,7 @@ export default class Bus implements IBus {
 
   /**
    * Fetches events from bus stream by predicate.
+   * @public
    * @param {string/RegExp/Function<T>} filter
    * @param {boolean} [silent]
    * @param {boolean} [skipCompact]
@@ -119,6 +141,7 @@ export default class Bus implements IBus {
 
   /**
    * Removes events from bus.
+   * @public
    * @param  {string/RegExp/Function<T>} filter
    * @param {boolean} [silent]
    * @returns {ISignalStack}
@@ -144,6 +167,7 @@ export default class Bus implements IBus {
 
   /**
    * Fetches and removes events from bus.
+   * @public
    * @param {string/RegExp/Function<T>} filter
    * @param {boolean} [silent]
    * @returns {T[]}
@@ -155,6 +179,7 @@ export default class Bus implements IBus {
   /**
    * Removes expired signals.
    * @param {boolean} [silent]
+   * @private
    */
   compact (silent: ?ISilent): void {
     const now = Date.now()
@@ -164,13 +189,8 @@ export default class Bus implements IBus {
   }
 
   /**
-   * Erases expired events from bus store.
-   * @return {undefined}
-   * @method compact
-   */
-
-  /**
    * Connects bus to target react component.
+   * @public
    * @param {React.Component} component
    * @returns {React.Component}
    */
@@ -188,7 +208,8 @@ export default class Bus implements IBus {
 
   /**
    * Returns bus reducer to integrate with store.
-   * @returns {*}
+   * @public
+   * @returns {Function}
    */
   getReducer (): Function {
     return this.dispatcher.reducer.bind(this.dispatcher)
@@ -196,19 +217,26 @@ export default class Bus implements IBus {
 
   /**
    * Returns bus scope id.
-   * @returns {*}
+   * @public
+   * @returns {string}
    */
   getScope (): string {
     return this.scope
   }
 
+  /**
+   * @private
+   */
   assertStore (): void {
     if (!this.store) {
       throw new Error('store is required')
     }
   }
 
-  hashUpdate(): void {
+  /**
+   * @private
+   */
+  hashUpdate (): void {
     this.assertStore()
 
     this.dispatcher.emit(`${this.scope}${HASH_UPDATE}`)

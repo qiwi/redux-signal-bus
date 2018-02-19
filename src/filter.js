@@ -2,10 +2,19 @@
 
 import type {IFilter, IFilterPredicate, IFilterValue, ISignal} from './interface'
 
+/**
+ * Filter constructor.
+ * @class Filter
+ */
 export default class Filter implements IFilter {
   value: IFilterValue
   fn: IFilterPredicate
 
+  /**
+   *
+   * @param {*} value
+   * @returns {Filter}
+   */
   constructor (value: IFilterValue): IFilter {
     this.value = value
     this.fn = this.constructor.parseValue(value)
@@ -13,6 +22,11 @@ export default class Filter implements IFilter {
     return this
   }
 
+  /**
+   * @static
+   * @param {*} value
+   * @returns {Function}
+   */
   static parseValue (value: IFilterValue): IFilterPredicate {
     if (typeof value === 'function') { // Flow can not resolve it
       const fn: Function = value
