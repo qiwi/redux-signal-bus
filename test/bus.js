@@ -35,7 +35,7 @@ describe('Bus', () => {
       it('injects signal to store', () => {
         bus.emit('foo', {bar: 'baz'})
 
-        expect(store.getState()[scope][0]).to.deep.include({name: 'foo', ttl: 5000, data: {bar: 'baz'}})
+        expect(store.getState()[scope]['stack'][0]).to.deep.include({name: 'foo', ttl: 5000, data: {bar: 'baz'}})
       })
     })
 
@@ -92,8 +92,12 @@ describe('Bus', () => {
         bus.emit(name, {bar: 'baz'})
         bus.emit(name, {baz: 'qux'})
 
-        expect(bus.capture('foobar').length).to.equal(2)
+        const hash = store.getState()[scope]['hash']
+
+        expect(bus.capture('foobar', true).length).to.equal(2)
         expect(bus.listen('foobar').length).to.equal(0)
+
+        expect(store.getState()[scope]['hash']).to.equal(hash)
       })
     })
 
@@ -123,7 +127,7 @@ describe('Bus', () => {
 
         bus.compact()
 
-        expect(store.getState()[scope].length).to.equal(1)
+        expect(store.getState()[scope]['stack'].length).to.equal(1)
       })
     })
 

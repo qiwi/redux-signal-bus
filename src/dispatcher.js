@@ -8,7 +8,7 @@ import type {
   ISignal,
   IFilter,
   ISignalStack,
-  IAction
+  IAction, ISignalState
 
 } from './interface'
 
@@ -41,7 +41,7 @@ export default class Dispatcher implements IDispatcher {
     delete this.handlers[event]
   }
 
-  reducer (state: ISignalStack = [], {type, filter, signal}: IAction): ISignalStack {
+  reducer (state: ISignalState = {stack: [], hash: 0}, {type, filter, signal}: IAction): ISignalState {
     const handler = this.handlers[type]
 
     if (!handler) {

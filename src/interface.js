@@ -34,6 +34,11 @@ export type ISignalOpts = {
   ttl: ?number;
 }
 
+export type ISignalState = {
+  stack: ISignalStack;
+  hash: number;
+}
+
 export interface IStore {
   dispatch: IDispatch;
   getState(): IState
@@ -56,13 +61,14 @@ export interface IBus {
 
   constructor(): IBus;
   configure(opts: IBusOpts): IBus;
-  emit(name: string, data?: ?any, ttl?: ?number): void;
-  listen(value: IFilterValue): ISignalStack;
-  erase(value: IFilterValue): void;
-  capture(value: IFilterValue): ISignalStack;
+  emit(name: string, data?: ?any, ttl?: ?number, silent: ?ISilent): void;
+  listen(value: IFilterValue, silent: ?ISilent, skipCompact: ?boolean): ISignalStack;
+  erase(value: IFilterValue, silent: ?ISilent): ISignalStack;
+  capture(value: IFilterValue, silent: ?ISilent): ISignalStack;
   connect(component: IReactComponent): IReactComponent;
   getReducer(): IReducer;
   getScope(): string;
+  hashUpdate(): void
 }
 
 export type IBusOpts = {
@@ -78,11 +84,11 @@ export interface IDispatcher {
   on(event: string, handler: IHandler): IDispatcher;
   emit(event: string, signal: ?ISignal, filter: ?IFilter): IAction;
   remove(event: string): void;
-  reducer(state: IState, action: IAction): IState
+  reducer(state: IState, action: IAction): IState;
 }
 
 export interface IHandler {
-  (input: IHandlerArgs): ISignalStack
+  (input: IHandlerArgs): ISignalState
 }
 
 export type IHandlerMap = {
@@ -90,7 +96,7 @@ export type IHandlerMap = {
 }
 
 export type IHandlerArgs = {
-  state: any;
+  state: ISignalState;
   event: string;
   signal: ?ISignal;
   filter: ?IFilter;
@@ -99,4 +105,6 @@ export type IHandlerArgs = {
 export interface IReducer {
   reduce(state: any): any
 }
+
+export type ISilent = boolean
 
