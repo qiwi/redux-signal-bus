@@ -1,3 +1,5 @@
 // @flow
 
-export default {}
+import Bus from './bus'
+
+export default Bus

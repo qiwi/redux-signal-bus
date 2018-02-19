@@ -38,6 +38,5 @@ describe('filter', () => {
       expect(filter.fn()).to.be.false
       expect(filter.fn({name: 'FOObar'})).to.be.false
     })
-
   })
 })

@@ -4,15 +4,15 @@ import type {ISignal, ISignalOpts} from './interface'
 
 export const DEFAULT_TTL = 5000
 
-export default class Signal implements ISignal{
+export default class Signal implements ISignal {
   name: string
-  data: any
+  data: ?any
   ttl: number
   expiresAt: number
 
-  constructor({name, data, ttl = DEFAULT_TTL}: ISignalOpts): ISignal {
+  constructor ({name, data, ttl}: ISignalOpts): ISignal {
     this.name = name
-    this.ttl = ttl
+    this.ttl = ttl || DEFAULT_TTL
     this.expiresAt = Date.now() + ttl
     this.data = data
 

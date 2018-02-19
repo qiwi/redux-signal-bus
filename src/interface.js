@@ -1,6 +1,6 @@
 // @flow
 
-export type IFilterValue = | string | RegExp | Function| IFilterFn
+export type IFilterValue = | string | RegExp | Function | any
 
 export type IAction = {
   type: string;
@@ -18,11 +18,7 @@ export interface IFilter {
   fn: IFilterPredicate;
 }
 
-export type IFilterFn = {
-  (state: ISignalStack): ISignalStack;
-}
-
-export type ISignalStack = Array<ISignal> | void
+export type ISignalStack = Array<ISignal>
 
 export interface ISignal {
   constructor(opts: ISignalOpts): ISignal;
@@ -34,8 +30,8 @@ export interface ISignal {
 
 export type ISignalOpts = {
   name: string;
-  data: any;
-  ttl: number;
+  data: ?any;
+  ttl: ?number;
 }
 
 export interface IStore {
@@ -45,8 +41,12 @@ export interface IStore {
 
 export type IState = any
 
+export type IEntireState = {
+  [key: string]: any;
+}
+
 export type IDispatch = {
-  (action: IAction): void
+  (action: IAction): IAction
 }
 
 export interface IBus {
@@ -54,14 +54,14 @@ export interface IBus {
   store: IStore;
   dispatcher: IDispatcher;
 
-  constructor (): IBus;
+  constructor(): IBus;
   configure(opts: IBusOpts): IBus;
   emit(name: string, data?: ?any, ttl?: ?number): void;
-  listen(name: string): any;
+  listen(name: string): ISignalStack;
   erase(): void;
-  capture(): void;
+  capture(): ISignalStack;
   connect(component: IReactComponent): IReactComponent;
-  reducer(): void;
+  getReducer(): IReducer;
   getScope(): string;
 }
 
@@ -74,10 +74,11 @@ export type IReactComponent = any
 export interface IDispatcher {
   dispatch: IDispatch;
   handlers: IHandlerMap;
-  constructor(): IDispatcher;
-  on(event: string, handler: IHandler): void;
-  emit(event: string, signal: ISignal, IFilter): IAction;
+  constructor(dispatch: IDispatch): IDispatcher;
+  on(event: string, handler: IHandler): IDispatcher;
+  emit(event: string, signal: ?ISignal, filter: ?IFilter): IAction;
   remove(event: string): void;
+  reducer(state: IState, action: IAction): IState
 }
 
 export interface IHandler {
@@ -91,8 +92,8 @@ export type IHandlerMap = {
 export type IHandlerArgs = {
   state: any;
   event: string;
-  signal?: ?ISignal;
-  filter?: ?Function;
+  signal: ?ISignal;
+  filter: ?IFilter;
 }
 
 export interface IReducer {

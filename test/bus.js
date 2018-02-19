@@ -1,6 +1,7 @@
 import chai from 'chai'
 import Bus from '../src/bus'
 import {createStore, combineReducers} from 'redux'
+import {Component} from 'react'
 
 const {expect} = chai
 
@@ -28,7 +29,7 @@ describe('Bus', () => {
       it('requires store', () => {
         bus.store = null
 
-        expect(() => {bus.emit('foo')}).to.throw()
+        expect(() => { bus.emit('foo') }).to.throw()
       })
 
       it('injects signal to store', () => {
@@ -41,7 +42,7 @@ describe('Bus', () => {
     describe('`listen`', () => {
       it('requires store', () => {
         bus.store = null
-        expect(() => {bus.listen('foo')}).to.throw()
+        expect(() => { bus.listen('foo') }).to.throw()
       })
 
       it('fetches by name', () => {
@@ -52,7 +53,7 @@ describe('Bus', () => {
         const signals = bus.listen('foobar')
 
         expect(signals.length).to.equal(2)
-        expect(signals[0]).to.deep.include({name,  data: {bar: 'baz'}})
+        expect(signals[0]).to.deep.include({name, data: {bar: 'baz'}})
       })
 
       it('fetches by regex', () => {
@@ -61,7 +62,7 @@ describe('Bus', () => {
 
         const signals = bus.listen(/^foob/)
 
-        expect(signals[0]).to.deep.include({name,  data: {baz: 'qux'}})
+        expect(signals[0]).to.deep.include({name, data: {baz: 'qux'}})
       })
 
       it('fetches by predicate fn', () => {
@@ -70,7 +71,7 @@ describe('Bus', () => {
 
         const signals = bus.listen(({name}) => !name.indexOf('foo'))
 
-        expect(signals[0]).to.deep.include({name,  data: {baz: 'qux'}})
+        expect(signals[0]).to.deep.include({name, data: {baz: 'qux'}})
       })
 
       it('returns empty array if no match found', () => {
@@ -83,7 +84,7 @@ describe('Bus', () => {
     describe('`capture`', () => {
       it('requires store', () => {
         bus.store = null
-        expect(() => {bus.capture('foo')}).to.throw()
+        expect(() => { bus.capture('foo') }).to.throw()
       })
 
       it('returns signals and then removes them from store', () => {
@@ -99,7 +100,7 @@ describe('Bus', () => {
     describe('`erase`', () => {
       it('requires store', () => {
         bus.store = null
-        expect(() => {bus.erase('foo')}).to.throw()
+        expect(() => { bus.erase('foo') }).to.throw()
       })
 
       it('removes signals from store', () => {
@@ -123,6 +124,24 @@ describe('Bus', () => {
         bus.compact()
 
         expect(store.getState()[scope].length).to.equal(1)
+      })
+    })
+
+    describe('`connect`', () => {
+      it('binds the bus with react component', () => {
+        class Item extends Component {
+          render () {
+            return 'foo'
+          }
+        }
+        const ItemWithBus = bus.connect(Item)
+        const component = new ItemWithBus({store})
+        const props = component.render().props
+
+        expect(props.bus.listen).to.be.a('function')
+        expect(props.bus.emit).to.be.a('function')
+        expect(props.bus.capture).to.be.a('function')
+        expect(props.bus.erase).to.be.a('function')
       })
     })
   })

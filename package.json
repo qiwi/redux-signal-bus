@@ -34,6 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash-es": "^4.17.5",
+    "react": "^16.2.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2"
   },
@@ -60,7 +61,26 @@
     "glob": "^7.1.2",
     "mocha": "^5.0.1",
     "nyc": "^11.4.1",
+    "react-dom": "^16.2.0",
     "reduce-reducers": "^0.1.2",
     "standard-flow": "^1.0.0"
+  },
+  "standard-flow": {
+    "parser": "babel-eslint",
+    "globals": [
+      "it",
+      "expect",
+      "describe",
+      "beforeEach"
+    ],
+    "ignore": [],
+    "plugins": [
+      "flowtype"
+    ],
+    "settings": {
+      "flowtype": {
+        "onlyFilesWithFlowAnnotation": true
+      }
+    }
   }
 }

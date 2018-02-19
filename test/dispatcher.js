@@ -19,7 +19,7 @@ describe('dispatcher', () => {
 
   describe('proto', () => {
     it('`emit` dispatches event', () => {
-      const event = 'foo';
+      const event = 'foo'
       const signal = new Signal(event)
       const filter = new Filter(() => {})
       const dispatcher = new Dispatcher(dispatch)

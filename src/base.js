@@ -1,5 +1,6 @@
 // @flow
 
 export {
-  negate
+  negate,
+  filter
 } from 'lodash-es'
