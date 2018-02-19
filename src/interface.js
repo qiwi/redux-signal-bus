@@ -57,9 +57,9 @@ export interface IBus {
   constructor(): IBus;
   configure(opts: IBusOpts): IBus;
   emit(name: string, data?: ?any, ttl?: ?number): void;
-  listen(name: string): ISignalStack;
-  erase(): void;
-  capture(): ISignalStack;
+  listen(value: IFilterValue): ISignalStack;
+  erase(value: IFilterValue): void;
+  capture(value: IFilterValue): ISignalStack;
   connect(component: IReactComponent): IReactComponent;
   getReducer(): IReducer;
   getScope(): string;
