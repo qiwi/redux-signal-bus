@@ -15,7 +15,9 @@ So you need to wrap bus instance manually in accordance to your app architecture
     const store = createStore({[bus.getScope()]: bus.getReducer(), ...})
     bus.configure({store})
 ```
+
 #####Bind with component
+
 ```
     class Item extends Component {
       render (props) {
@@ -36,6 +38,7 @@ or just inject the store by hand
 ```
 
 #####Bus API
+
 ```
     export type IFilterValue = | string | RegExp | Function | any
 
@@ -55,4 +58,85 @@ or just inject the store by hand
       getScope(): string;
     }
 
+```
+
+#####Usage example
+
+######bus.js
+
+```
+    import Bus from 'redux-signal-bus'
+   
+    // singleton 
+    const bus = new Bus()
+    
+    export default bus
+```
+
+######store.js
+
+```
+    import {createStore} from 'redux'
+    import {combineReducers} from 'react-redux'
+    import bus from './bus'
+    import reducers from './reducers'
+
+    const store = createStore(combineReducers({[bus.getScope()]: bus.getReducer(), ...reducers}))
+    bus.configure({store})
+
+    export default store
+```
+
+######App.js
+```
+    import React from 'react'
+    import {Provider} from 'react-redux'
+    import {FirstComponent, SecondComponent} from './components'
+    
+    export default () => (
+        <Provider store={store}>
+            <FirstComponent/>
+            <SecondComponent/>
+        </Provider>
+    )
+```
+
+######components/FirstComponent.js
+
+```
+import bus from './bus'
+import React, {Component} from 'react'
+
+class FirstComponent extends Component {
+    doSomething() {
+        this.props.bus.emit('foo', {bar: 'baz'})
+        ...
+    }
+    render() {
+        <div>
+            <a onClick={this.doSomething.bind(this)}>click</a>
+        </div>
+    }
+}
+
+export default bus.connect(FirstComponent)
+```
+
+
+######components/SecondComponent.js
+
+```
+import bus from './bus'
+import React, {Component} from 'react'
+
+class SecondComponent extends Component {
+    render(props) {
+        return (<div>
+            Signals from from the 'FirstComponent':
+            {props.bus.listen('foo').map(({data}) => JSON.stringify(data)).join(', ')}
+        </div>)
+    }
+}
+
+export default bus.connect(SecondComponent)
 ```
