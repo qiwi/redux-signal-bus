@@ -1,5 +1,5 @@
 # redux-signal-bus
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com) [![Greenkeeper badge](https://badges.greenkeeper.io/qiwi/redux-signal-bus.svg)](https://greenkeeper.io/)
 ![buildStatus](https://travis-ci.org/qiwi/redux-signal-bus.svg?branch=master)
 ![coverage](https://coveralls.io/repos/qiwi/redux-signal-bus/badge.svg)
 ![deps](https://david-dm.org/qiwi/redux-signal-bus.svg)
