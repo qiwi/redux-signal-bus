@@ -1,11 +1,18 @@
 language: node_js
 node_js:
   - '9'
+
 before_install:
   - npm install -g nyc
   - npm install -g mocha
+  - npm install -g greenkeeper-lockfile
+
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
+
 install:
   - npm install
   - npm build
+
 script:
   - npm run test_with_report
