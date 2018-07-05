@@ -8,33 +8,41 @@ yarn-error.log*
 # Runtime data
 pids
 *.pid
-*.seed
 *.pid.lock
+*.seed
+temp/
+*.tmp
+.npm
+.*cache
+.node_repl_history
+
+# Config
+.env
 
 # Coverage
-flow-coverage
-lib-cov
+flow-coverage/
+lib-cov/
 coverage/
 .nyc_output
 
-# Bundle
+# Bundles
 build/
 dist/
+lib/
+bundle/
 
-#Docs
-docs/
-doc/
+# Docs
+/docs/
+/doc/
 
 # Deps
 node_modules/
 jspm_packages/
-typings/
+packages/*/lib
 
-.npm
-.eslintcache
-.node_repl_history
-.env
+# Typedefs
+flow-typed/npm/
 
+# IDE
 .idea
 .idea/
-dist/
