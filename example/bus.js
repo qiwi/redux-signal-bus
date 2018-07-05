@@ -1,4 +1,4 @@
-import Bus from '../src/bus'
+import Bus from '../src'
 
 const bus = new Bus()
 
