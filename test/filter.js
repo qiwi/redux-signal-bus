@@ -1,3 +1,4 @@
+/* eslint no-unused-expressions: 0 */
 import chai from 'chai'
 import Filter from '../src/filter'
 
@@ -22,7 +23,7 @@ describe('filter', () => {
     })
 
     it('from predicate', () => {
-      const value = ({name}) => name.length ===3
+      const value = ({name}) => name.length === 3
       const filter = new Filter(value)
 
       expect(filter.value).to.equal(value)

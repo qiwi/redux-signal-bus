@@ -51,7 +51,7 @@ export default class Bus implements IBus {
 
     this.dispatcher
       .on(`${this.scope}${HASH_UPDATE}`, ({state: {stack}}: IHandlerArgs) => ({hash: Math.random(), stack}))
-      .on(`${this.scope}${EMIT_SIGNAL}`, ({state: {stack, hash}, signal}: IHandlerArgs) => ({hash, stack: signal ? stack.concat(signal): stack}))
+      .on(`${this.scope}${EMIT_SIGNAL}`, ({state: {stack, hash}, signal}: IHandlerArgs) => ({hash, stack: signal ? stack.concat(signal) : stack}))
       .on(`${this.scope}${ERASE_SIGNAL}`, ({state: {stack, hash}, filter}: IHandlerArgs) => {
         if (!filter) {
           return {stack, hash}

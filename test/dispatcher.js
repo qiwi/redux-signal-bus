@@ -1,3 +1,4 @@
+/* eslint no-unused-expressions: 0 */
 import chai from 'chai'
 import chaiSpies from 'chai-spies'
 import Dispatcher from '../src/dispatcher'
