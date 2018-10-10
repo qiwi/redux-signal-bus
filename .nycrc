@@ -9,7 +9,7 @@
   ],
   "require": [
     "flow-remove-types/register",
-    "@std/esm",
+    "esm",
     "./script/require-all"
   ],
   "check-coverage": false,
