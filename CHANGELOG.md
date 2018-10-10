@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/qiwi/redux-signal-bus/compare/v1.0.0...v1.0.1) (2018-10-10)
+
+
+### Performance Improvements
+
+* **package:** optimize deps tree ([7e5249e](https://github.com/qiwi/redux-signal-bus/commit/7e5249e))
+
 # 1.0.0 (2018-10-10)
 
 
