@@ -1,14 +1,14 @@
 import chai from 'chai'
 import Signal from '../src/signal'
 
-const {expect} = chai
+const { expect } = chai
 
 describe('signal', () => {
   it('constructs proper instance', () => {
     const name = 'foo'
-    const data = {foo: 'bar'}
+    const data = { foo: 'bar' }
     const ttl = 100
-    const signal = new Signal({name, data, ttl})
+    const signal = new Signal({ name, data, ttl })
 
     expect(signal).to.be.instanceof(Signal)
     expect(signal.name).to.equal(name)

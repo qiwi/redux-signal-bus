@@ -1,9 +1,9 @@
 import chai from 'chai'
 import Bus from '../src/bus'
-import {createStore, combineReducers} from 'redux'
-import {Component} from 'react'
+import { createStore, combineReducers } from 'redux'
+import { Component } from 'react'
 
-const {expect} = chai
+const { expect } = chai
 
 describe('Bus', () => {
   describe('constructor', () => {
@@ -21,8 +21,8 @@ describe('Bus', () => {
     beforeEach(() => {
       bus = new Bus()
       scope = bus.getScope()
-      store = createStore(combineReducers({[scope]: bus.getReducer()}), {})
-      bus.configure({store: store})
+      store = createStore(combineReducers({ [scope]: bus.getReducer() }), {})
+      bus.configure({ store: store })
     })
 
     describe('`emit`', () => {
@@ -33,9 +33,9 @@ describe('Bus', () => {
       })
 
       it('injects signal to store', () => {
-        bus.emit('foo', {bar: 'baz'})
+        bus.emit('foo', { bar: 'baz' })
 
-        expect(store.getState()[scope]['stack'][0]).to.deep.include({name: 'foo', ttl: 5000, data: {bar: 'baz'}})
+        expect(store.getState()[scope]['stack'][0]).to.deep.include({ name: 'foo', ttl: 5000, data: { bar: 'baz' } })
       })
     })
 
@@ -47,31 +47,31 @@ describe('Bus', () => {
 
       it('fetches by name', () => {
         const name = 'foobar'
-        bus.emit(name, {bar: 'baz'})
-        bus.emit(name, {baz: 'qux'})
+        bus.emit(name, { bar: 'baz' })
+        bus.emit(name, { baz: 'qux' })
 
         const signals = bus.listen('foobar')
 
         expect(signals.length).to.equal(2)
-        expect(signals[0]).to.deep.include({name, data: {bar: 'baz'}})
+        expect(signals[0]).to.deep.include({ name, data: { bar: 'baz' } })
       })
 
       it('fetches by regex', () => {
         const name = 'foobar'
-        bus.emit(name, {baz: 'qux'})
+        bus.emit(name, { baz: 'qux' })
 
         const signals = bus.listen(/^foob/)
 
-        expect(signals[0]).to.deep.include({name, data: {baz: 'qux'}})
+        expect(signals[0]).to.deep.include({ name, data: { baz: 'qux' } })
       })
 
       it('fetches by predicate fn', () => {
         const name = 'foobar'
-        bus.emit(name, {baz: 'qux'})
+        bus.emit(name, { baz: 'qux' })
 
-        const signals = bus.listen(({name}) => !name.indexOf('foo'))
+        const signals = bus.listen(({ name }) => !name.indexOf('foo'))
 
-        expect(signals[0]).to.deep.include({name, data: {baz: 'qux'}})
+        expect(signals[0]).to.deep.include({ name, data: { baz: 'qux' } })
       })
 
       it('returns empty array if no match found', () => {
@@ -89,8 +89,8 @@ describe('Bus', () => {
 
       it('returns signals and then removes them from store', () => {
         const name = 'foobar'
-        bus.emit(name, {bar: 'baz'})
-        bus.emit(name, {baz: 'qux'})
+        bus.emit(name, { bar: 'baz' })
+        bus.emit(name, { baz: 'qux' })
 
         const hash = store.getState()[scope]['hash']
 
@@ -109,8 +109,8 @@ describe('Bus', () => {
 
       it('removes signals from store', () => {
         const name = 'foobar'
-        bus.emit(name, {bar: 'baz'})
-        bus.emit(name, {baz: 'qux'})
+        bus.emit(name, { bar: 'baz' })
+        bus.emit(name, { baz: 'qux' })
 
         bus.erase('foobar')
 
@@ -122,8 +122,8 @@ describe('Bus', () => {
       it('removes expired signals', () => {
         const name = 'foobar'
 
-        bus.emit(name, {bar: 'baz'}, 0)
-        bus.emit(name, {baz: 'qux'}, 100000)
+        bus.emit(name, { bar: 'baz' }, 0)
+        bus.emit(name, { baz: 'qux' }, 100000)
 
         bus.compact()
 
@@ -139,7 +139,7 @@ describe('Bus', () => {
           }
         }
         const ItemWithBus = bus.connect(Item)
-        const component = new ItemWithBus({store})
+        const component = new ItemWithBus({ store })
         const props = component.render().props
 
         expect(props.bus.listen).to.be.a('function')

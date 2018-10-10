@@ -77,14 +77,14 @@ export default class Dispatcher implements IDispatcher {
    * @param {Signal} signal
    * @returns {ISignalState}
    */
-  reducer (state: ISignalState = {stack: [], hash: 0}, {type, filter, signal}: IAction): ISignalState {
+  reducer (state: ISignalState = { stack: [], hash: 0 }, { type, filter, signal }: IAction): ISignalState {
     const handler = this.handlers[type]
 
     if (!handler) {
       return state
     }
 
-    const handlerArgs: IHandlerArgs = {state, event: type, filter, signal}
+    const handlerArgs: IHandlerArgs = { state, event: type, filter, signal }
 
     return handler(handlerArgs)
   }

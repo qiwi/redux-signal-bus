@@ -1,6 +1,6 @@
 // @flow
-import {connect} from 'react-redux'
-import {negate, filter as _filter, get} from './base'
+import { connect } from 'react-redux'
+import { negate, filter as _filter, get } from './base'
 import Dispatcher from './dispatcher'
 import Signal from './signal'
 import Filter from './filter'
@@ -50,11 +50,11 @@ export default class Bus implements IBus {
     this.dispatcher = new Dispatcher(this.dispatch.bind(this))
 
     this.dispatcher
-      .on(`${this.scope}${HASH_UPDATE}`, ({state: {stack}}: IHandlerArgs) => ({hash: Math.random(), stack}))
-      .on(`${this.scope}${EMIT_SIGNAL}`, ({state: {stack, hash}, signal}: IHandlerArgs) => ({hash, stack: signal ? stack.concat(signal) : stack}))
-      .on(`${this.scope}${ERASE_SIGNAL}`, ({state: {stack, hash}, filter}: IHandlerArgs) => {
+      .on(`${this.scope}${HASH_UPDATE}`, ({ state: { stack } }: IHandlerArgs) => ({ hash: Math.random(), stack }))
+      .on(`${this.scope}${EMIT_SIGNAL}`, ({ state: { stack, hash }, signal }: IHandlerArgs) => ({ hash, stack: signal ? stack.concat(signal) : stack }))
+      .on(`${this.scope}${ERASE_SIGNAL}`, ({ state: { stack, hash }, filter }: IHandlerArgs) => {
         if (!filter) {
-          return {stack, hash}
+          return { stack, hash }
         }
 
         const filtered: ISignalStack = _filter(stack, negate(filter.fn))
@@ -63,7 +63,7 @@ export default class Bus implements IBus {
           ? filtered
           : stack
 
-        return {stack: nextStack, hash}
+        return { stack: nextStack, hash }
       })
 
     return this
@@ -75,7 +75,7 @@ export default class Bus implements IBus {
    * @param {IStore} store
    * @returns {Bus}
    */
-  configure ({store}: IBusOpts): IBus {
+  configure ({ store }: IBusOpts): IBus {
     /**
      * @private
      * @property {Store} store
@@ -108,7 +108,7 @@ export default class Bus implements IBus {
 
     this.dispatcher.emit(
       `${this.scope}${EMIT_SIGNAL}`,
-      new Signal({name: event, data, ttl})
+      new Signal({ name: event, data, ttl })
     )
 
     if (!silent) {
@@ -133,7 +133,7 @@ export default class Bus implements IBus {
 
     const scope = this.getScope()
     const state: IEntireState = this.store.getState() || {}
-    const signalState: ISignalState = state[scope] || {stack: [], hash: 0}
+    const signalState: ISignalState = state[scope] || { stack: [], hash: 0 }
     const signals: ISignalStack = signalState.stack
 
     return _filter(signals, new Filter(filter).fn)
@@ -183,7 +183,7 @@ export default class Bus implements IBus {
    */
   compact (silent: ?ISilent): void {
     const now = Date.now()
-    const filter = ({expiresAt}: ISignal) => now >= expiresAt
+    const filter = ({ expiresAt }: ISignal) => now >= expiresAt
 
     this.erase(filter, silent)
   }
@@ -203,7 +203,7 @@ export default class Bus implements IBus {
       erase: this.erase.bind(this)
     }
 
-    return connect(state => ({bus, [scope]: get(state, `${scope}.hash`)}))(component)
+    return connect(state => ({ bus, [scope]: get(state, `${scope}.hash`) }))(component)
   }
 
   /**

@@ -1,6 +1,6 @@
 // @flow
 
-import type {IFilter, IFilterPredicate, IFilterValue, ISignal} from './interface'
+import type { IFilter, IFilterPredicate, IFilterValue, ISignal } from './interface'
 
 /**
  * Filter constructor.
@@ -35,11 +35,11 @@ export default class Filter implements IFilter {
 
     if (value instanceof RegExp) { // and this one too
       const regex: RegExp = value
-      return ({name}: ISignal): boolean => regex.test(name)
+      return ({ name }: ISignal): boolean => regex.test(name)
     }
 
     if (typeof value === 'string') {
-      return ({name}: ISignal): boolean => name === value
+      return ({ name }: ISignal): boolean => name === value
     }
 
     return () => false

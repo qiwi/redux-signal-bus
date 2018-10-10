@@ -5,7 +5,7 @@ import Dispatcher from '../src/dispatcher'
 import Signal from '../src/signal'
 import Filter from '../src/filter'
 
-const {expect} = chai
+const { expect } = chai
 chai.use(chaiSpies)
 
 const dispatch = chai.spy(value => value)
@@ -60,11 +60,11 @@ describe('dispatcher', () => {
         const signal = new Signal('qux')
         const filter = new Filter(() => {})
         const state = []
-        const action = {type, signal, filter}
+        const action = { type, signal, filter }
 
         dispatcher.on(type, handler)
         expect(dispatcher.reducer(state, action)).to.equal(result)
-        expect(handler).to.have.been.called.with({state, event: type, signal, filter})
+        expect(handler).to.have.been.called.with({ state, event: type, signal, filter })
       })
 
       it('does nothing otherwise', () => {
@@ -75,7 +75,7 @@ describe('dispatcher', () => {
         const signal = new Signal('qux')
         const filter = new Filter(() => {})
         const state = []
-        const action = {type: 'FOOBAR', signal, filter}
+        const action = { type: 'FOOBAR', signal, filter }
 
         dispatcher.on(type, handler)
         expect(dispatcher.reducer(state, action)).to.equal(state)

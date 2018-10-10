@@ -1,6 +1,6 @@
 // @flow
 
-import type {ISignal, ISignalOpts} from './interface'
+import type { ISignal, ISignalOpts } from './interface'
 
 export const DEFAULT_TTL = 5000
 
@@ -20,7 +20,7 @@ export default class Signal implements ISignal {
    * @param {number} ttl
    * @returns {Signal}
    */
-  constructor ({name, data, ttl}: ISignalOpts): ISignal {
+  constructor ({ name, data, ttl }: ISignalOpts): ISignal {
     this.name = name
     this.ttl = ttl || DEFAULT_TTL
     this.expiresAt = Date.now() + ttl

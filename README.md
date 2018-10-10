@@ -1,12 +1,19 @@
 # redux-signal-bus
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com) [![Greenkeeper badge](https://badges.greenkeeper.io/qiwi/redux-signal-bus.svg)](https://greenkeeper.io/)
-![buildStatus](https://travis-ci.org/qiwi/redux-signal-bus.svg?branch=master)
-![coverage](https://coveralls.io/repos/qiwi/redux-signal-bus/badge.svg)
-![deps](https://david-dm.org/qiwi/redux-signal-bus.svg)
-![devDeps](https://david-dm.org/qiwi/redux-signal-bus/dev-status.svg)
+[![buildStatus](https://api.travis-ci.com/qiwi/redux-signal-bus.svg?branch=master)](https://travis-ci.com/qiwi/redux-signal-bus)
+[![dependencyStatus](https://img.shields.io/david/qiwi/redux-signal-bus.svg?maxAge=3600)](https://david-dm.org/qiwi/redux-signal-bus)
+[![devDependencyStatus](https://img.shields.io/david/dev/qiwi/redux-signal-bus.svg?maxAge=3600)](https://david-dm.org/qiwi/redux-signal-bus)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3a306db9033bf8a25d73/maintainability)](https://codeclimate.com/github/qiwi/redux-signal-bus/maintainability)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![coverage](https://img.shields.io/coveralls/qiwi/redux-signal-bus.svg?maxAge=3600)](https://coveralls.io/github/qiwi/redux-signal-bus)
 
 We'll create our own notification bus with ttl, filters, blackjack and hookers over redux.
+## Install
+```bash
+    yarn add @qiwi/redux-signal-bus
+    npm i @qiwi/redux-signal-bus
+```
 
+## Usage
 ##### Inject to store
 Since [store.getReducer](https://github.com/reactjs/redux/issues/350) was replaced from redux, there's no tricky way to inject reducer to chain.
 So you need to wrap bus instance manually in accordance to your app architecture
