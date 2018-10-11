@@ -79,6 +79,18 @@ describe('Bus', () => {
 
         expect(signals.length).to.equal(0)
       })
+
+      it('`listen` returns empty if signal expired', done => {
+        const name = 'foo-expiring'
+        bus.emit(name, { bar: 'baz' }, 5)
+
+        expect(bus.listen(name).length).to.equal(1)
+
+        setTimeout(() => {
+          expect(bus.listen(name).length).to.equal(0)
+          done()
+        }, 10)
+      })
     })
 
     describe('`capture`', () => {
