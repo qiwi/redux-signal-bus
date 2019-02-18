@@ -17,6 +17,7 @@ module.exports = {
     },
     "test": {
       "presets": [
+        "@babel/preset-react",
         "@babel/preset-flow",
         "@babel/preset-env"
       ],

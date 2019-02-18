@@ -1,5 +1,5 @@
 import chai from 'chai'
-import Signal from '../src/signal'
+import Signal from '../main/signal'
 
 const { expect } = chai
 

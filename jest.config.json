@@ -1,0 +1,28 @@
+{
+  "setupFilesAfterEnv": ["./node_modules/jest-enzyme/lib/index.js"],
+  "snapshotSerializers": ["enzyme-to-json/serializer"],
+  "collectCoverage": true,
+  "coveragePathIgnorePatterns": [
+    "<rootDir>/src/main/interface.js"
+  ],
+  "collectCoverageFrom": [
+    "<rootDir>/src/main/**/*.js"
+  ],
+  "testMatch": [
+    "<rootDir>/src/test/*.js"
+  ],
+  "testPathIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
+  },
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node"
+  ]
+}

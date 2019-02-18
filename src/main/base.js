@@ -4,4 +4,4 @@ export {
   get,
   negate,
   filter
-} from 'lodash-es'
+} from 'lodash'

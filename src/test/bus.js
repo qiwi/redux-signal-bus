@@ -1,7 +1,12 @@
 import chai from 'chai'
-import Bus from '../src/bus'
+import Bus from '../main/bus'
 import { createStore, combineReducers } from 'redux'
-import { Component } from 'react'
+import Adapter from 'enzyme-adapter-react-16'
+import enzyme, { mount } from 'enzyme'
+import { Provider } from 'react-redux'
+import React, { Component } from 'react'
+
+enzyme.configure({ adapter: new Adapter() })
 
 const { expect } = chai
 
@@ -147,12 +152,21 @@ describe('Bus', () => {
       it('binds the bus with react component', () => {
         class Item extends Component {
           render () {
-            return 'foo'
+            return (<div>foo</div>)
           }
         }
         const ItemWithBus = bus.connect(Item)
-        const component = new ItemWithBus({ store })
-        const props = component.render().props
+        const wrapper = mount(
+          (
+            <Provider store={store}>
+              <ItemWithBus />
+            </Provider>
+          ),
+          { context: { store } }
+        )
+        wrapper.render()
+
+        const props = wrapper.find(Item).props()
 
         expect(props.bus.listen).to.be.a('function')
         expect(props.bus.emit).to.be.a('function')

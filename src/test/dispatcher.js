@@ -1,9 +1,9 @@
 /* eslint no-unused-expressions: 0 */
 import chai from 'chai'
 import chaiSpies from 'chai-spies'
-import Dispatcher from '../src/dispatcher'
-import Signal from '../src/signal'
-import Filter from '../src/filter'
+import Dispatcher from '../main/dispatcher'
+import Signal from '../main/signal'
+import Filter from '../main/filter'
 
 const { expect } = chai
 chai.use(chaiSpies)
