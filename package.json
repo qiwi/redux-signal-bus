@@ -46,7 +46,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.11",
-    "react-redux": "^6.0.0"
+    "react-redux": "^7.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
