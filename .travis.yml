@@ -21,6 +21,7 @@ after_script:
 install:
   - yarn cache clean
   - yarn
+  - yarn fetch_libdefs
 
 script:
   - yarn run build
