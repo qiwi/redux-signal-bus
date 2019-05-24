@@ -77,7 +77,7 @@
     "eslint-config-standard-flow": "^1.0.1",
     "flow-bin": "^0.97.0",
     "flow-coverage-report": "^0.6.1",
-    "flow-remove-types": "^1.2.3",
+    "flow-remove-types": "^2.99.0",
     "flow-typed": "^2.5.1",
     "jest": "^24.7.1",
     "jest-enzyme": "^7.0.2",
