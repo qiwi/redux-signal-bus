@@ -72,7 +72,7 @@
     "docma": "^3.2.2",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-flow": "^1.0.1",
     "flow-bin": "^0.97.0",
