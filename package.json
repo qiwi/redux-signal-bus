@@ -1,6 +1,6 @@
 {
   "name": "@qiwi/redux-signal-bus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Signal bus over redux actions",
   "private": false,
   "main": "target/es5/index.js",

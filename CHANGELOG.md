@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/qiwi/redux-signal-bus/compare/v1.0.2...v1.0.3) (2019-07-26)
+
+
+### Performance Improvements
+
+* migrate to maven dir layout & repack ([e4c5f41](https://github.com/qiwi/redux-signal-bus/commit/e4c5f41))
+
 ## [1.0.2](https://github.com/qiwi/redux-signal-bus/compare/v1.0.1...v1.0.2) (2018-10-11)
 
 
