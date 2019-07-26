@@ -1,5 +1,5 @@
 import chai from 'chai'
-import Bus from '../main/bus'
+import Bus from '../../main/js/bus'
 import { createStore, combineReducers } from 'redux'
 import Adapter from 'enzyme-adapter-react-16'
 import enzyme, { mount } from 'enzyme'

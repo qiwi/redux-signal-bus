@@ -1,6 +1,6 @@
 /* eslint no-unused-expressions: 0 */
 import chai from 'chai'
-import Filter from '../main/filter'
+import Filter from '../../main/js/filter'
 
 const { expect } = chai
 

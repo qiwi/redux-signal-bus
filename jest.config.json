@@ -3,13 +3,13 @@
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "collectCoverage": true,
   "coveragePathIgnorePatterns": [
-    "<rootDir>/src/main/interface.js"
+    "<rootDir>/src/main/js/interface.js"
   ],
   "collectCoverageFrom": [
     "<rootDir>/src/main/**/*.js"
   ],
   "testMatch": [
-    "<rootDir>/src/test/*.js"
+    "<rootDir>/src/test/**/*.js"
   ],
   "testPathIgnorePatterns": [
     "/node_modules/"

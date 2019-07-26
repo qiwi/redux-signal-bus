@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Signal bus over redux actions",
   "private": false,
-  "main": "dist/es5/index.js",
+  "main": "target/es5/index.js",
   "directories": {
     "source": "src",
     "test": "test"
@@ -11,7 +11,7 @@
   "files": [
     "README.md",
     "CHANGELOG.md",
-    "dist/"
+    "target"
   ],
   "scripts": {
     "flow": "flow",
@@ -26,10 +26,10 @@
     "docs": "yarn docs_gen && yarn docs_view",
     "test_with_report": "npm test && yarn coveralls_push",
     "coveralls_push": "cat ./coverage/lcov.info | coveralls",
-    "build_es6": "flow-remove-types src/main --out-dir dist/es6/",
-    "build_es5": "BABEL_ENV=production babel src/main --out-dir dist/es5/",
-    "build": "rm -rf dist && yarn build_es5 && yarn build_es6",
-    "example": "REACT_APP_ENTRY=./example/index.js react-scripts start"
+    "build_es6": "flow-remove-types src/main/js --out-dir target/es6/",
+    "build_es5": "BABEL_ENV=production babel src/main/js --out-dir target/es5/",
+    "build": "rm -rf target && yarn build_es5 && yarn build_es6",
+    "example": "REACT_APP_ENTRY=./example/index.js SKIP_PREFLIGHT_CHECK=true react-scripts start"
   },
   "repository": {
     "type": "git",
