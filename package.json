@@ -5,8 +5,8 @@
   "private": false,
   "main": "target/es5/index.js",
   "directories": {
-    "source": "src",
-    "test": "test"
+    "source": "src/main/js",
+    "test": "src/test/js"
   },
   "files": [
     "README.md",
@@ -15,20 +15,20 @@
   ],
   "scripts": {
     "flow": "flow",
-    "flow_coverage": "flow-coverage-report -i 'src/main/*.js' -t html -t json -t text --threshold 85",
+    "flow:coverage": "flow-coverage-report -i 'src/main/**/*.js' -t html -t json -t text --threshold 85",
     "fetch_libdefs": "flow-typed install lodash-es@4.17.11",
     "lint": "standard src/**/*.js",
     "lint:fix": "yarn lint --fix",
     "jest": "jest --config=jest.config.json",
-    "test": "yarn lint && yarn flow_coverage && yarn jest",
-    "docs_gen": "yarn build_es6 && docma --require flow-remove-types/register -c ./docma.json",
-    "docs_view": "docma serve",
-    "docs": "yarn docs_gen && yarn docs_view",
-    "test_with_report": "npm test && yarn coveralls_push",
-    "coveralls_push": "cat ./coverage/lcov.info | coveralls",
-    "build_es6": "flow-remove-types src/main/js --out-dir target/es6/",
-    "build_es5": "BABEL_ENV=production babel src/main/js --out-dir target/es5/",
-    "build": "rm -rf target && yarn build_es5 && yarn build_es6",
+    "test": "yarn lint && yarn flow:coverage && yarn jest",
+    "docs:gen": "yarn build:es6 && docma --require flow-remove-types/register -c ./docma.json",
+    "docs:view": "docma serve",
+    "docs": "yarn docs:gen && yarn docs:view",
+    "test:report": "npm test && yarn coveralls:push",
+    "coveralls:push": "cat ./coverage/lcov.info | coveralls",
+    "build:es6": "flow-remove-types src/main/js --out-dir target/es6/",
+    "build:es5": "BABEL_ENV=production babel src/main/js --out-dir target/es5/",
+    "build": "rm -rf target && yarn build:es5 && yarn build:es6",
     "example": "REACT_APP_ENTRY=./example/index.js SKIP_PREFLIGHT_CHECK=true react-scripts start"
   },
   "repository": {
