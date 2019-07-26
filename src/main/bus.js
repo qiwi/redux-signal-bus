@@ -29,7 +29,9 @@ export const ERASE_SIGNAL = 'ERASE_SIGNAL'
 
 export default class Bus implements IBus {
   scope: string
+
   store: IStore
+
   dispatcher: IDispatcher
 
   /**

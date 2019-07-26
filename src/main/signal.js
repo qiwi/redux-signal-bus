@@ -9,8 +9,11 @@ export const DEFAULT_TTL = 5000
  */
 export default class Signal implements ISignal {
   name: string
+
   data: ?any
+
   ttl: number
+
   expiresAt: number
 
   /**

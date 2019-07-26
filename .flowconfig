@@ -4,3 +4,6 @@
 [ignore]
 ./dist/
 .*/node_modules/config-chain/test/
+
+[lints]
+deprecated-utility=off

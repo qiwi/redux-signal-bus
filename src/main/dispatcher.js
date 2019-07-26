@@ -20,6 +20,7 @@ import type {
  */
 export default class Dispatcher implements IDispatcher {
   handlers: IHandlerMap
+
   dispatch: IDispatch
 
   /**

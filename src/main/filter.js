@@ -8,6 +8,7 @@ import type { IFilter, IFilterPredicate, IFilterValue, ISignal } from './interfa
  */
 export default class Filter implements IFilter {
   value: IFilterValue
+
   fn: IFilterPredicate
 
   /**
