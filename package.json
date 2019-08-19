@@ -74,7 +74,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.1.0",
-    "eslint-config-standard": "^13.0.1",
+    "eslint-config-standard": "^14.0.0",
     "eslint-config-standard-flow": "^1.0.1",
     "flow-bin": "^0.103.0",
     "flow-coverage-report": "^0.6.1",
