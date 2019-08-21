@@ -39,7 +39,7 @@ describe('dispatcher', () => {
       const handler = () => {}
 
       dispatcher.on('TEST', handler)
-      expect(dispatcher.handlers['TEST']).to.equal(handler)
+      expect(dispatcher.handlers.TEST).to.equal(handler)
     })
 
     it('`remove` destructs subscription', () => {
@@ -48,7 +48,7 @@ describe('dispatcher', () => {
 
       dispatcher.on('TEST', handler)
       dispatcher.remove('TEST')
-      expect(dispatcher.handlers['TEST']).to.be.undefined
+      expect(dispatcher.handlers.TEST).to.be.undefined
     })
 
     describe('`reducer`', () => {
