@@ -47,6 +47,7 @@
   "author": "Anton Golub <a.golub@qiwi.com>",
   "license": "MIT",
   "dependencies": {
+    "@qiwi/license": "^1.1.1",
     "lodash": "^4.17.15",
     "react-redux": "^7.1.1"
   },
