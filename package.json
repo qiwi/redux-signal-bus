@@ -74,7 +74,7 @@
     "coveralls": "^3.0.7",
     "docma": "^3.2.2",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-adapter-react-16": "1.15.6",
     "eslint": "^6.5.1",
     "eslint-config-standard": "^14.1.0",
     "eslint-config-standard-flow": "^1.0.1",
