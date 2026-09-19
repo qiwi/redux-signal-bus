@@ -6058,10 +6058,10 @@ flow-annotation-check@1.8.1:
     glob "7.1.1"
     load-pkg "^3.0.1"
 
-flow-bin@^0.109.0:
-  version "0.109.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.109.0.tgz#dcdcb7402dd85b58200392d8716ccf14e5a8c24c"
-  integrity sha512-tpcMTpAGIRivYhFV3KJq+zHI2HzcXo8MoGe9pXS4G/UZuey2Faq/e8/gdph2WF0erRlML5hmwfwiq7v9c25c7w==
+flow-bin@^0.332.0:
+  version "0.332.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.332.0.tgz#b83761b61c1d4fd22a74a6882035da671556fb32"
+  integrity sha512-Vf1fSgUkwKwwN/xt2vFHxiML8g6BBGXbKHlgZm4R//bNp+pc9DMKQ5F0vsTXdBMaeHrFur1U5Lonh9w2bxb8nA==
 
 flow-coverage-report@^0.6.1:
   version "0.6.1"
